@@ -1,27 +1,28 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import { persistStore, persistReducer } from 'redux-persist';
-import thunk from 'redux-thunk';
-import { routerMiddleware } from 'connected-react-router';
-import storage from 'redux-persist/lib/storage';
+import { createStore, applyMiddleware, compose } from 'redux'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import thunk from 'redux-thunk'
+import reducers from './ducks'
 
-import { reducers } from './ducks';
-import history from '~/routes/history';
+console.log(thunk);
 
 const persistConfig = {
-  key: 'root',
-  storage,
-};
+    key: 'root',
+    storage,
+}
 
-const middleware = [thunk, routerMiddleware(history)];
-const persistedReducer = persistReducer(persistConfig, reducers);
+const initialState = {}
+const middleware = [thunk]
+const persistedReducer = persistReducer(persistConfig, reducers)
 
 const composeEnhancers =
-  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true })
-    : compose;
+    typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+        ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true })
+        : compose
 
-const enhancer = composeEnhancers(applyMiddleware(...middleware));
-const store = createStore(persistedReducer, enhancer);
-const persistor = persistStore(store);
+const enhancer = composeEnhancers(applyMiddleware(...middleware))
+const store = createStore(persistedReducer, initialState, enhancer)
 
-export { store, persistor };
+const persistor = persistStore(store)
+
+export { store, persistor }

@@ -9,13 +9,21 @@ export const Container = styled.div`
   flex-direction: column;
   h1 {
     font-size: 54px;
-    color: ${props => props.theme.colors.primary};
+    color: #fff;
     margin-top: 40px;
   }
-  p {
-    margin-top: 24px;
-    font-size: 24px;
+  span {
+    font-size: 45px;
     line-height: 32px;
+    margin: 0px 16px 0 16px;
+  }
+  button {
+    width: 66px;
+    height: 31px;
+    background-color: #e6df07;
+    font-size: 29px;
+    line-height: 0;
+    border: 0;
   }
 `;
 
